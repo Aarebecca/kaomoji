@@ -16,7 +16,8 @@
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
     "prepublishOnly": "father doctor && npm run build",
-    "generate:lexer": "java -jar ./packages/antlr-4.13.1-complete.jar -Dlanguage=TypeScript -visitor ./src/lexer/kaomoji.g4 -o ./src/lexer  -Xexact-output-dir -long-messages"
+    "generate:lexer": "java -jar ./packages/antlr-4.13.1-complete.jar -Dlanguage=TypeScript -visitor ./src/lexer/kaomoji.g4 -o ./src/lexer  -Xexact-output-dir -long-messages",
+    "analysis": "antlr4-parse ./src/lexer/kaomoji.g4 prog -gui"
   },
   "authors": [],
   "license": "MIT",

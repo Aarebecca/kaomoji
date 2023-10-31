@@ -34,11 +34,10 @@ export default class kaomojiParser extends Parser {
 	public static readonly T__12 = 13;
 	public static readonly T__13 = 14;
 	public static readonly T__14 = 15;
-	public static readonly T__15 = 16;
-	public static readonly T__16 = 17;
-	public static readonly ID = 18;
-	public static readonly INT = 19;
-	public static readonly WS = 20;
+	public static readonly STRING = 16;
+	public static readonly ID = 17;
+	public static readonly INT = 18;
+	public static readonly WS = 19;
 	public static readonly EOF = Token.EOF;
 	public static readonly RULE_prog = 0;
 	public static readonly RULE_stmt = 1;
@@ -49,16 +48,18 @@ export default class kaomojiParser extends Parser {
 	public static readonly RULE_loop = 6;
 	public static readonly RULE_functionDecl = 7;
 	public static readonly RULE_functionCall = 8;
-	public static readonly RULE_specialEffect = 9;
-	public static readonly RULE_expr = 10;
+	public static readonly RULE_addOperator = 9;
+	public static readonly RULE_subOperator = 10;
+	public static readonly RULE_mulOperator = 11;
+	public static readonly RULE_divOperator = 12;
+	public static readonly RULE_expr = 13;
 	public static readonly literalNames: (string | null)[] = [ null, "'^_^'", 
                                                             "'T_T'", "'o_o'", 
                                                             "'=_='", "'<_<'", 
                                                             "'?_?'", "'!_!'", 
                                                             "'@_@'", "'#_#'", 
                                                             "'(\\u2192_\\u2190)'", 
-                                                            "'^o^'", "'$_$'", 
-                                                            "'%_%'", "'+'", 
+                                                            "'^o^'", "'+'", 
                                                             "'-'", "'*'", 
                                                             "'/'" ];
 	public static readonly symbolicNames: (string | null)[] = [ null, null, 
@@ -69,13 +70,13 @@ export default class kaomojiParser extends Parser {
                                                              null, null, 
                                                              null, null, 
                                                              null, null, 
-                                                             null, null, 
-                                                             "ID", "INT", 
-                                                             "WS" ];
+                                                             "STRING", "ID", 
+                                                             "INT", "WS" ];
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
 		"prog", "stmt", "decl", "assign", "print", "ifStmt", "loop", "functionDecl", 
-		"functionCall", "specialEffect", "expr",
+		"functionCall", "addOperator", "subOperator", "mulOperator", "divOperator", 
+		"expr",
 	];
 	public get grammarFileName(): string { return "kaomoji.g4"; }
 	public get literalNames(): (string | null)[] { return kaomojiParser.literalNames; }
@@ -99,23 +100,23 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 22;
+			this.state = 28;
 			this.match(kaomojiParser.T__0);
-			this.state = 26;
+			this.state = 32;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 277864) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 134504) !== 0)) {
 				{
 				{
-				this.state = 23;
+				this.state = 29;
 				this.stmt();
 				}
 				}
-				this.state = 28;
+				this.state = 34;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 29;
+			this.state = 35;
 			this.match(kaomojiParser.T__1);
 			}
 		}
@@ -138,72 +139,56 @@ export default class kaomojiParser extends Parser {
 		let localctx: StmtContext = new StmtContext(this, this._ctx, this.state);
 		this.enterRule(localctx, 2, kaomojiParser.RULE_stmt);
 		try {
-			this.state = 39;
+			this.state = 44;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case 3:
-				localctx = new DeclStmtContext(this, localctx);
 				this.enterOuterAlt(localctx, 1);
 				{
-				this.state = 31;
+				this.state = 37;
 				this.decl();
 				}
 				break;
-			case 18:
-				localctx = new AssignStmtContext(this, localctx);
+			case 17:
 				this.enterOuterAlt(localctx, 2);
 				{
-				this.state = 32;
+				this.state = 38;
 				this.assign();
 				}
 				break;
 			case 5:
-				localctx = new PrintStmtContext(this, localctx);
 				this.enterOuterAlt(localctx, 3);
 				{
-				this.state = 33;
+				this.state = 39;
 				this.print();
 				}
 				break;
 			case 6:
-				localctx = new IfStatementContext(this, localctx);
 				this.enterOuterAlt(localctx, 4);
 				{
-				this.state = 34;
+				this.state = 40;
 				this.ifStmt();
 				}
 				break;
 			case 8:
-				localctx = new LoopStmtContext(this, localctx);
 				this.enterOuterAlt(localctx, 5);
 				{
-				this.state = 35;
+				this.state = 41;
 				this.loop();
 				}
 				break;
 			case 10:
-				localctx = new FuncDeclarationContext(this, localctx);
 				this.enterOuterAlt(localctx, 6);
 				{
-				this.state = 36;
+				this.state = 42;
 				this.functionDecl();
 				}
 				break;
 			case 11:
-				localctx = new FuncCallContext(this, localctx);
 				this.enterOuterAlt(localctx, 7);
 				{
-				this.state = 37;
+				this.state = 43;
 				this.functionCall();
-				}
-				break;
-			case 12:
-			case 13:
-				localctx = new SpecialEffectStmtContext(this, localctx);
-				this.enterOuterAlt(localctx, 8);
-				{
-				this.state = 38;
-				this.specialEffect();
 				}
 				break;
 			default:
@@ -231,9 +216,9 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 41;
+			this.state = 46;
 			this.match(kaomojiParser.T__2);
-			this.state = 42;
+			this.state = 47;
 			this.match(kaomojiParser.ID);
 			}
 		}
@@ -258,11 +243,11 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 44;
+			this.state = 49;
 			this.match(kaomojiParser.ID);
-			this.state = 45;
+			this.state = 50;
 			this.match(kaomojiParser.T__3);
-			this.state = 46;
+			this.state = 51;
 			this.expr(0);
 			}
 		}
@@ -287,9 +272,9 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 48;
+			this.state = 53;
 			this.match(kaomojiParser.T__4);
-			this.state = 49;
+			this.state = 54;
 			this.expr(0);
 			}
 		}
@@ -314,20 +299,20 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 51;
-			this.match(kaomojiParser.T__5);
-			this.state = 52;
-			this.expr(0);
-			this.state = 53;
-			this.stmt();
 			this.state = 56;
+			this.match(kaomojiParser.T__5);
+			this.state = 57;
+			this.expr(0);
+			this.state = 58;
+			this.stmt();
+			this.state = 61;
 			this._errHandler.sync(this);
 			switch ( this._interp.adaptivePredict(this._input, 2, this._ctx) ) {
 			case 1:
 				{
-				this.state = 54;
+				this.state = 59;
 				this.match(kaomojiParser.T__6);
-				this.state = 55;
+				this.state = 60;
 				this.stmt();
 				}
 				break;
@@ -355,13 +340,13 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 58;
+			this.state = 63;
 			this.match(kaomojiParser.T__7);
-			this.state = 59;
+			this.state = 64;
 			this.expr(0);
-			this.state = 60;
+			this.state = 65;
 			this.stmt();
-			this.state = 61;
+			this.state = 66;
 			this.match(kaomojiParser.T__8);
 			}
 		}
@@ -386,11 +371,11 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 63;
+			this.state = 68;
 			this.match(kaomojiParser.T__9);
-			this.state = 64;
+			this.state = 69;
 			this.match(kaomojiParser.ID);
-			this.state = 65;
+			this.state = 70;
 			this.stmt();
 			}
 		}
@@ -415,9 +400,9 @@ export default class kaomojiParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 67;
+			this.state = 72;
 			this.match(kaomojiParser.T__10);
-			this.state = 68;
+			this.state = 73;
 			this.match(kaomojiParser.ID);
 			}
 		}
@@ -436,22 +421,89 @@ export default class kaomojiParser extends Parser {
 		return localctx;
 	}
 	// @RuleVersion(0)
-	public specialEffect(): SpecialEffectContext {
-		let localctx: SpecialEffectContext = new SpecialEffectContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 18, kaomojiParser.RULE_specialEffect);
-		let _la: number;
+	public addOperator(): AddOperatorContext {
+		let localctx: AddOperatorContext = new AddOperatorContext(this, this._ctx, this.state);
+		this.enterRule(localctx, 18, kaomojiParser.RULE_addOperator);
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 70;
-			_la = this._input.LA(1);
-			if(!(_la===12 || _la===13)) {
-			this._errHandler.recoverInline(this);
+			this.state = 75;
+			this.match(kaomojiParser.T__11);
 			}
-			else {
-				this._errHandler.reportMatch(this);
-			    this.consume();
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
 			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return localctx;
+	}
+	// @RuleVersion(0)
+	public subOperator(): SubOperatorContext {
+		let localctx: SubOperatorContext = new SubOperatorContext(this, this._ctx, this.state);
+		this.enterRule(localctx, 20, kaomojiParser.RULE_subOperator);
+		try {
+			this.enterOuterAlt(localctx, 1);
+			{
+			this.state = 77;
+			this.match(kaomojiParser.T__12);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return localctx;
+	}
+	// @RuleVersion(0)
+	public mulOperator(): MulOperatorContext {
+		let localctx: MulOperatorContext = new MulOperatorContext(this, this._ctx, this.state);
+		this.enterRule(localctx, 22, kaomojiParser.RULE_mulOperator);
+		try {
+			this.enterOuterAlt(localctx, 1);
+			{
+			this.state = 79;
+			this.match(kaomojiParser.T__13);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return localctx;
+	}
+	// @RuleVersion(0)
+	public divOperator(): DivOperatorContext {
+		let localctx: DivOperatorContext = new DivOperatorContext(this, this._ctx, this.state);
+		this.enterRule(localctx, 24, kaomojiParser.RULE_divOperator);
+		try {
+			this.enterOuterAlt(localctx, 1);
+			{
+			this.state = 81;
+			this.match(kaomojiParser.T__14);
 			}
 		}
 		catch (re) {
@@ -481,31 +533,30 @@ export default class kaomojiParser extends Parser {
 		let _parentState: number = this.state;
 		let localctx: ExprContext = new ExprContext(this, this._ctx, _parentState);
 		let _prevctx: ExprContext = localctx;
-		let _startState: number = 20;
-		this.enterRecursionRule(localctx, 20, kaomojiParser.RULE_expr, _p);
+		let _startState: number = 26;
+		this.enterRecursionRule(localctx, 26, kaomojiParser.RULE_expr, _p);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 75;
+			this.state = 87;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case 19:
+			case 18:
 				{
-				localctx = new IntExprContext(this, localctx);
-				this._ctx = localctx;
-				_prevctx = localctx;
-
-				this.state = 73;
+				this.state = 84;
 				this.match(kaomojiParser.INT);
 				}
 				break;
-			case 18:
+			case 16:
 				{
-				localctx = new IdExprContext(this, localctx);
-				this._ctx = localctx;
-				_prevctx = localctx;
-				this.state = 74;
+				this.state = 85;
+				this.match(kaomojiParser.STRING);
+				}
+				break;
+			case 17:
+				{
+				this.state = 86;
 				this.match(kaomojiParser.ID);
 				}
 				break;
@@ -513,7 +564,7 @@ export default class kaomojiParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			this._ctx.stop = this._input.LT(-1);
-			this.state = 91;
+			this.state = 107;
 			this._errHandler.sync(this);
 			_alt = this._interp.adaptivePredict(this._input, 5, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
@@ -523,69 +574,69 @@ export default class kaomojiParser extends Parser {
 					}
 					_prevctx = localctx;
 					{
-					this.state = 89;
+					this.state = 105;
 					this._errHandler.sync(this);
 					switch ( this._interp.adaptivePredict(this._input, 4, this._ctx) ) {
 					case 1:
 						{
-						localctx = new AddExprContext(this, new ExprContext(this, _parentctx, _parentState));
+						localctx = new ExprContext(this, _parentctx, _parentState);
 						this.pushNewRecursionContext(localctx, _startState, kaomojiParser.RULE_expr);
-						this.state = 77;
+						this.state = 89;
 						if (!(this.precpred(this._ctx, 4))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 4)");
 						}
-						this.state = 78;
-						this.match(kaomojiParser.T__13);
-						this.state = 79;
+						this.state = 90;
+						this.addOperator();
+						this.state = 91;
 						this.expr(5);
 						}
 						break;
 					case 2:
 						{
-						localctx = new SubExprContext(this, new ExprContext(this, _parentctx, _parentState));
+						localctx = new ExprContext(this, _parentctx, _parentState);
 						this.pushNewRecursionContext(localctx, _startState, kaomojiParser.RULE_expr);
-						this.state = 80;
+						this.state = 93;
 						if (!(this.precpred(this._ctx, 3))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 3)");
 						}
-						this.state = 81;
-						this.match(kaomojiParser.T__14);
-						this.state = 82;
+						this.state = 94;
+						this.subOperator();
+						this.state = 95;
 						this.expr(4);
 						}
 						break;
 					case 3:
 						{
-						localctx = new MulExprContext(this, new ExprContext(this, _parentctx, _parentState));
+						localctx = new ExprContext(this, _parentctx, _parentState);
 						this.pushNewRecursionContext(localctx, _startState, kaomojiParser.RULE_expr);
-						this.state = 83;
+						this.state = 97;
 						if (!(this.precpred(this._ctx, 2))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 2)");
 						}
-						this.state = 84;
-						this.match(kaomojiParser.T__15);
-						this.state = 85;
+						this.state = 98;
+						this.mulOperator();
+						this.state = 99;
 						this.expr(3);
 						}
 						break;
 					case 4:
 						{
-						localctx = new DivExprContext(this, new ExprContext(this, _parentctx, _parentState));
+						localctx = new ExprContext(this, _parentctx, _parentState);
 						this.pushNewRecursionContext(localctx, _startState, kaomojiParser.RULE_expr);
-						this.state = 86;
+						this.state = 101;
 						if (!(this.precpred(this._ctx, 1))) {
 							throw this.createFailedPredicateException("this.precpred(this._ctx, 1)");
 						}
-						this.state = 87;
-						this.match(kaomojiParser.T__16);
-						this.state = 88;
+						this.state = 102;
+						this.divOperator();
+						this.state = 103;
 						this.expr(2);
 						}
 						break;
 					}
 					}
 				}
-				this.state = 93;
+				this.state = 109;
 				this._errHandler.sync(this);
 				_alt = this._interp.adaptivePredict(this._input, 5, this._ctx);
 			}
@@ -608,7 +659,7 @@ export default class kaomojiParser extends Parser {
 
 	public sempred(localctx: RuleContext, ruleIndex: number, predIndex: number): boolean {
 		switch (ruleIndex) {
-		case 10:
+		case 13:
 			return this.expr_sempred(localctx as ExprContext, predIndex);
 		}
 		return true;
@@ -627,34 +678,38 @@ export default class kaomojiParser extends Parser {
 		return true;
 	}
 
-	public static readonly _serializedATN: number[] = [4,1,20,95,2,0,7,0,2,
+	public static readonly _serializedATN: number[] = [4,1,19,111,2,0,7,0,2,
 	1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,
-	10,7,10,1,0,1,0,5,0,25,8,0,10,0,12,0,28,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,3,1,40,8,1,1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,5,1,5,
-	1,5,1,5,1,5,3,5,57,8,5,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,8,1,8,1,8,
-	1,9,1,9,1,10,1,10,1,10,3,10,76,8,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,
-	1,10,1,10,1,10,1,10,1,10,5,10,90,8,10,10,10,12,10,93,9,10,1,10,0,1,20,11,
-	0,2,4,6,8,10,12,14,16,18,20,0,1,1,0,12,13,97,0,22,1,0,0,0,2,39,1,0,0,0,
-	4,41,1,0,0,0,6,44,1,0,0,0,8,48,1,0,0,0,10,51,1,0,0,0,12,58,1,0,0,0,14,63,
-	1,0,0,0,16,67,1,0,0,0,18,70,1,0,0,0,20,75,1,0,0,0,22,26,5,1,0,0,23,25,3,
-	2,1,0,24,23,1,0,0,0,25,28,1,0,0,0,26,24,1,0,0,0,26,27,1,0,0,0,27,29,1,0,
-	0,0,28,26,1,0,0,0,29,30,5,2,0,0,30,1,1,0,0,0,31,40,3,4,2,0,32,40,3,6,3,
-	0,33,40,3,8,4,0,34,40,3,10,5,0,35,40,3,12,6,0,36,40,3,14,7,0,37,40,3,16,
-	8,0,38,40,3,18,9,0,39,31,1,0,0,0,39,32,1,0,0,0,39,33,1,0,0,0,39,34,1,0,
-	0,0,39,35,1,0,0,0,39,36,1,0,0,0,39,37,1,0,0,0,39,38,1,0,0,0,40,3,1,0,0,
-	0,41,42,5,3,0,0,42,43,5,18,0,0,43,5,1,0,0,0,44,45,5,18,0,0,45,46,5,4,0,
-	0,46,47,3,20,10,0,47,7,1,0,0,0,48,49,5,5,0,0,49,50,3,20,10,0,50,9,1,0,0,
-	0,51,52,5,6,0,0,52,53,3,20,10,0,53,56,3,2,1,0,54,55,5,7,0,0,55,57,3,2,1,
-	0,56,54,1,0,0,0,56,57,1,0,0,0,57,11,1,0,0,0,58,59,5,8,0,0,59,60,3,20,10,
-	0,60,61,3,2,1,0,61,62,5,9,0,0,62,13,1,0,0,0,63,64,5,10,0,0,64,65,5,18,0,
-	0,65,66,3,2,1,0,66,15,1,0,0,0,67,68,5,11,0,0,68,69,5,18,0,0,69,17,1,0,0,
-	0,70,71,7,0,0,0,71,19,1,0,0,0,72,73,6,10,-1,0,73,76,5,19,0,0,74,76,5,18,
-	0,0,75,72,1,0,0,0,75,74,1,0,0,0,76,91,1,0,0,0,77,78,10,4,0,0,78,79,5,14,
-	0,0,79,90,3,20,10,5,80,81,10,3,0,0,81,82,5,15,0,0,82,90,3,20,10,4,83,84,
-	10,2,0,0,84,85,5,16,0,0,85,90,3,20,10,3,86,87,10,1,0,0,87,88,5,17,0,0,88,
-	90,3,20,10,2,89,77,1,0,0,0,89,80,1,0,0,0,89,83,1,0,0,0,89,86,1,0,0,0,90,
-	93,1,0,0,0,91,89,1,0,0,0,91,92,1,0,0,0,92,21,1,0,0,0,93,91,1,0,0,0,6,26,
-	39,56,75,89,91];
+	10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,1,0,1,0,5,0,31,8,0,10,0,12,0,34,9,
+	0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,45,8,1,1,2,1,2,1,2,1,3,1,3,1,
+	3,1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,3,5,62,8,5,1,6,1,6,1,6,1,6,1,6,1,
+	7,1,7,1,7,1,7,1,8,1,8,1,8,1,9,1,9,1,10,1,10,1,11,1,11,1,12,1,12,1,13,1,
+	13,1,13,1,13,3,13,88,8,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
+	1,13,1,13,1,13,1,13,1,13,1,13,1,13,5,13,106,8,13,10,13,12,13,109,9,13,1,
+	13,0,1,26,14,0,2,4,6,8,10,12,14,16,18,20,22,24,26,0,0,110,0,28,1,0,0,0,
+	2,44,1,0,0,0,4,46,1,0,0,0,6,49,1,0,0,0,8,53,1,0,0,0,10,56,1,0,0,0,12,63,
+	1,0,0,0,14,68,1,0,0,0,16,72,1,0,0,0,18,75,1,0,0,0,20,77,1,0,0,0,22,79,1,
+	0,0,0,24,81,1,0,0,0,26,87,1,0,0,0,28,32,5,1,0,0,29,31,3,2,1,0,30,29,1,0,
+	0,0,31,34,1,0,0,0,32,30,1,0,0,0,32,33,1,0,0,0,33,35,1,0,0,0,34,32,1,0,0,
+	0,35,36,5,2,0,0,36,1,1,0,0,0,37,45,3,4,2,0,38,45,3,6,3,0,39,45,3,8,4,0,
+	40,45,3,10,5,0,41,45,3,12,6,0,42,45,3,14,7,0,43,45,3,16,8,0,44,37,1,0,0,
+	0,44,38,1,0,0,0,44,39,1,0,0,0,44,40,1,0,0,0,44,41,1,0,0,0,44,42,1,0,0,0,
+	44,43,1,0,0,0,45,3,1,0,0,0,46,47,5,3,0,0,47,48,5,17,0,0,48,5,1,0,0,0,49,
+	50,5,17,0,0,50,51,5,4,0,0,51,52,3,26,13,0,52,7,1,0,0,0,53,54,5,5,0,0,54,
+	55,3,26,13,0,55,9,1,0,0,0,56,57,5,6,0,0,57,58,3,26,13,0,58,61,3,2,1,0,59,
+	60,5,7,0,0,60,62,3,2,1,0,61,59,1,0,0,0,61,62,1,0,0,0,62,11,1,0,0,0,63,64,
+	5,8,0,0,64,65,3,26,13,0,65,66,3,2,1,0,66,67,5,9,0,0,67,13,1,0,0,0,68,69,
+	5,10,0,0,69,70,5,17,0,0,70,71,3,2,1,0,71,15,1,0,0,0,72,73,5,11,0,0,73,74,
+	5,17,0,0,74,17,1,0,0,0,75,76,5,12,0,0,76,19,1,0,0,0,77,78,5,13,0,0,78,21,
+	1,0,0,0,79,80,5,14,0,0,80,23,1,0,0,0,81,82,5,15,0,0,82,25,1,0,0,0,83,84,
+	6,13,-1,0,84,88,5,18,0,0,85,88,5,16,0,0,86,88,5,17,0,0,87,83,1,0,0,0,87,
+	85,1,0,0,0,87,86,1,0,0,0,88,107,1,0,0,0,89,90,10,4,0,0,90,91,3,18,9,0,91,
+	92,3,26,13,5,92,106,1,0,0,0,93,94,10,3,0,0,94,95,3,20,10,0,95,96,3,26,13,
+	4,96,106,1,0,0,0,97,98,10,2,0,0,98,99,3,22,11,0,99,100,3,26,13,3,100,106,
+	1,0,0,0,101,102,10,1,0,0,102,103,3,24,12,0,103,104,3,26,13,2,104,106,1,
+	0,0,0,105,89,1,0,0,0,105,93,1,0,0,0,105,97,1,0,0,0,105,101,1,0,0,0,106,
+	109,1,0,0,0,107,105,1,0,0,0,107,108,1,0,0,0,108,27,1,0,0,0,109,107,1,0,
+	0,0,6,32,44,61,87,105,107];
 
 	private static __ATN: ATN;
 	public static get _ATN(): ATN {
@@ -710,224 +765,44 @@ export class StmtContext extends ParserRuleContext {
 		super(parent, invokingState);
     	this.parser = parser;
 	}
-    public get ruleIndex(): number {
-    	return kaomojiParser.RULE_stmt;
-	}
-	public copyFrom(ctx: StmtContext): void {
-		super.copyFrom(ctx);
-	}
-}
-export class PrintStmtContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public print(): PrintContext {
-		return this.getTypedRuleContext(PrintContext, 0) as PrintContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterPrintStmt) {
-	 		listener.enterPrintStmt(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitPrintStmt) {
-	 		listener.exitPrintStmt(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitPrintStmt) {
-			return visitor.visitPrintStmt(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class LoopStmtContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public loop(): LoopContext {
-		return this.getTypedRuleContext(LoopContext, 0) as LoopContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterLoopStmt) {
-	 		listener.enterLoopStmt(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitLoopStmt) {
-	 		listener.exitLoopStmt(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitLoopStmt) {
-			return visitor.visitLoopStmt(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class DeclStmtContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
 	public decl(): DeclContext {
 		return this.getTypedRuleContext(DeclContext, 0) as DeclContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterDeclStmt) {
-	 		listener.enterDeclStmt(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitDeclStmt) {
-	 		listener.exitDeclStmt(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitDeclStmt) {
-			return visitor.visitDeclStmt(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class SpecialEffectStmtContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public specialEffect(): SpecialEffectContext {
-		return this.getTypedRuleContext(SpecialEffectContext, 0) as SpecialEffectContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterSpecialEffectStmt) {
-	 		listener.enterSpecialEffectStmt(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitSpecialEffectStmt) {
-	 		listener.exitSpecialEffectStmt(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitSpecialEffectStmt) {
-			return visitor.visitSpecialEffectStmt(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class AssignStmtContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
 	}
 	public assign(): AssignContext {
 		return this.getTypedRuleContext(AssignContext, 0) as AssignContext;
 	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterAssignStmt) {
-	 		listener.enterAssignStmt(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitAssignStmt) {
-	 		listener.exitAssignStmt(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitAssignStmt) {
-			return visitor.visitAssignStmt(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class IfStatementContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
+	public print(): PrintContext {
+		return this.getTypedRuleContext(PrintContext, 0) as PrintContext;
 	}
 	public ifStmt(): IfStmtContext {
 		return this.getTypedRuleContext(IfStmtContext, 0) as IfStmtContext;
 	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterIfStatement) {
-	 		listener.enterIfStatement(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitIfStatement) {
-	 		listener.exitIfStatement(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitIfStatement) {
-			return visitor.visitIfStatement(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class FuncCallContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public functionCall(): FunctionCallContext {
-		return this.getTypedRuleContext(FunctionCallContext, 0) as FunctionCallContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterFuncCall) {
-	 		listener.enterFuncCall(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitFuncCall) {
-	 		listener.exitFuncCall(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitFuncCall) {
-			return visitor.visitFuncCall(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class FuncDeclarationContext extends StmtContext {
-	constructor(parser: kaomojiParser, ctx: StmtContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
+	public loop(): LoopContext {
+		return this.getTypedRuleContext(LoopContext, 0) as LoopContext;
 	}
 	public functionDecl(): FunctionDeclContext {
 		return this.getTypedRuleContext(FunctionDeclContext, 0) as FunctionDeclContext;
 	}
+	public functionCall(): FunctionCallContext {
+		return this.getTypedRuleContext(FunctionCallContext, 0) as FunctionCallContext;
+	}
+    public get ruleIndex(): number {
+    	return kaomojiParser.RULE_stmt;
+	}
 	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterFuncDeclaration) {
-	 		listener.enterFuncDeclaration(this);
+	    if(listener.enterStmt) {
+	 		listener.enterStmt(this);
 		}
 	}
 	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitFuncDeclaration) {
-	 		listener.exitFuncDeclaration(this);
+	    if(listener.exitStmt) {
+	 		listener.exitStmt(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitFuncDeclaration) {
-			return visitor.visitFuncDeclaration(this);
+		if (visitor.visitStmt) {
+			return visitor.visitStmt(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -1174,28 +1049,115 @@ export class FunctionCallContext extends ParserRuleContext {
 }
 
 
-export class SpecialEffectContext extends ParserRuleContext {
+export class AddOperatorContext extends ParserRuleContext {
 	constructor(parser?: kaomojiParser, parent?: ParserRuleContext, invokingState?: number) {
 		super(parent, invokingState);
     	this.parser = parser;
 	}
     public get ruleIndex(): number {
-    	return kaomojiParser.RULE_specialEffect;
+    	return kaomojiParser.RULE_addOperator;
 	}
 	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterSpecialEffect) {
-	 		listener.enterSpecialEffect(this);
+	    if(listener.enterAddOperator) {
+	 		listener.enterAddOperator(this);
 		}
 	}
 	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitSpecialEffect) {
-	 		listener.exitSpecialEffect(this);
+	    if(listener.exitAddOperator) {
+	 		listener.exitAddOperator(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitSpecialEffect) {
-			return visitor.visitSpecialEffect(this);
+		if (visitor.visitAddOperator) {
+			return visitor.visitAddOperator(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class SubOperatorContext extends ParserRuleContext {
+	constructor(parser?: kaomojiParser, parent?: ParserRuleContext, invokingState?: number) {
+		super(parent, invokingState);
+    	this.parser = parser;
+	}
+    public get ruleIndex(): number {
+    	return kaomojiParser.RULE_subOperator;
+	}
+	public enterRule(listener: kaomojiListener): void {
+	    if(listener.enterSubOperator) {
+	 		listener.enterSubOperator(this);
+		}
+	}
+	public exitRule(listener: kaomojiListener): void {
+	    if(listener.exitSubOperator) {
+	 		listener.exitSubOperator(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
+		if (visitor.visitSubOperator) {
+			return visitor.visitSubOperator(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class MulOperatorContext extends ParserRuleContext {
+	constructor(parser?: kaomojiParser, parent?: ParserRuleContext, invokingState?: number) {
+		super(parent, invokingState);
+    	this.parser = parser;
+	}
+    public get ruleIndex(): number {
+    	return kaomojiParser.RULE_mulOperator;
+	}
+	public enterRule(listener: kaomojiListener): void {
+	    if(listener.enterMulOperator) {
+	 		listener.enterMulOperator(this);
+		}
+	}
+	public exitRule(listener: kaomojiListener): void {
+	    if(listener.exitMulOperator) {
+	 		listener.exitMulOperator(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
+		if (visitor.visitMulOperator) {
+			return visitor.visitMulOperator(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class DivOperatorContext extends ParserRuleContext {
+	constructor(parser?: kaomojiParser, parent?: ParserRuleContext, invokingState?: number) {
+		super(parent, invokingState);
+    	this.parser = parser;
+	}
+    public get ruleIndex(): number {
+    	return kaomojiParser.RULE_divOperator;
+	}
+	public enterRule(listener: kaomojiListener): void {
+	    if(listener.enterDivOperator) {
+	 		listener.enterDivOperator(this);
+		}
+	}
+	public exitRule(listener: kaomojiListener): void {
+	    if(listener.exitDivOperator) {
+	 		listener.exitDivOperator(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
+		if (visitor.visitDivOperator) {
+			return visitor.visitDivOperator(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -1208,182 +1170,50 @@ export class ExprContext extends ParserRuleContext {
 		super(parent, invokingState);
     	this.parser = parser;
 	}
-    public get ruleIndex(): number {
-    	return kaomojiParser.RULE_expr;
-	}
-	public copyFrom(ctx: ExprContext): void {
-		super.copyFrom(ctx);
-	}
-}
-export class IntExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
 	public INT(): TerminalNode {
 		return this.getToken(kaomojiParser.INT, 0);
 	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterIntExpr) {
-	 		listener.enterIntExpr(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitIntExpr) {
-	 		listener.exitIntExpr(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitIntExpr) {
-			return visitor.visitIntExpr(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class AddExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public expr_list(): ExprContext[] {
-		return this.getTypedRuleContexts(ExprContext) as ExprContext[];
-	}
-	public expr(i: number): ExprContext {
-		return this.getTypedRuleContext(ExprContext, i) as ExprContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterAddExpr) {
-	 		listener.enterAddExpr(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitAddExpr) {
-	 		listener.exitAddExpr(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitAddExpr) {
-			return visitor.visitAddExpr(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class MulExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public expr_list(): ExprContext[] {
-		return this.getTypedRuleContexts(ExprContext) as ExprContext[];
-	}
-	public expr(i: number): ExprContext {
-		return this.getTypedRuleContext(ExprContext, i) as ExprContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterMulExpr) {
-	 		listener.enterMulExpr(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitMulExpr) {
-	 		listener.exitMulExpr(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitMulExpr) {
-			return visitor.visitMulExpr(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class DivExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public expr_list(): ExprContext[] {
-		return this.getTypedRuleContexts(ExprContext) as ExprContext[];
-	}
-	public expr(i: number): ExprContext {
-		return this.getTypedRuleContext(ExprContext, i) as ExprContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterDivExpr) {
-	 		listener.enterDivExpr(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitDivExpr) {
-	 		listener.exitDivExpr(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitDivExpr) {
-			return visitor.visitDivExpr(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class SubExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
-	}
-	public expr_list(): ExprContext[] {
-		return this.getTypedRuleContexts(ExprContext) as ExprContext[];
-	}
-	public expr(i: number): ExprContext {
-		return this.getTypedRuleContext(ExprContext, i) as ExprContext;
-	}
-	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterSubExpr) {
-	 		listener.enterSubExpr(this);
-		}
-	}
-	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitSubExpr) {
-	 		listener.exitSubExpr(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitSubExpr) {
-			return visitor.visitSubExpr(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-export class IdExprContext extends ExprContext {
-	constructor(parser: kaomojiParser, ctx: ExprContext) {
-		super(parser, ctx.parentCtx, ctx.invokingState);
-		super.copyFrom(ctx);
+	public STRING(): TerminalNode {
+		return this.getToken(kaomojiParser.STRING, 0);
 	}
 	public ID(): TerminalNode {
 		return this.getToken(kaomojiParser.ID, 0);
 	}
+	public expr_list(): ExprContext[] {
+		return this.getTypedRuleContexts(ExprContext) as ExprContext[];
+	}
+	public expr(i: number): ExprContext {
+		return this.getTypedRuleContext(ExprContext, i) as ExprContext;
+	}
+	public addOperator(): AddOperatorContext {
+		return this.getTypedRuleContext(AddOperatorContext, 0) as AddOperatorContext;
+	}
+	public subOperator(): SubOperatorContext {
+		return this.getTypedRuleContext(SubOperatorContext, 0) as SubOperatorContext;
+	}
+	public mulOperator(): MulOperatorContext {
+		return this.getTypedRuleContext(MulOperatorContext, 0) as MulOperatorContext;
+	}
+	public divOperator(): DivOperatorContext {
+		return this.getTypedRuleContext(DivOperatorContext, 0) as DivOperatorContext;
+	}
+    public get ruleIndex(): number {
+    	return kaomojiParser.RULE_expr;
+	}
 	public enterRule(listener: kaomojiListener): void {
-	    if(listener.enterIdExpr) {
-	 		listener.enterIdExpr(this);
+	    if(listener.enterExpr) {
+	 		listener.enterExpr(this);
 		}
 	}
 	public exitRule(listener: kaomojiListener): void {
-	    if(listener.exitIdExpr) {
-	 		listener.exitIdExpr(this);
+	    if(listener.exitExpr) {
+	 		listener.exitExpr(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: kaomojiVisitor<Result>): Result {
-		if (visitor.visitIdExpr) {
-			return visitor.visitIdExpr(this);
+		if (visitor.visitExpr) {
+			return visitor.visitExpr(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

@@ -5,15 +5,13 @@ grammar kaomoji;
 prog: '^_^' stmt* 'T_T';
 
 stmt:
-      decl                 # declStmt
-    | assign               # assignStmt
-    | print                # printStmt
-    | ifStmt               # ifStatement
-    | loop                 # loopStmt
-    | functionDecl         # funcDeclaration
-    | functionCall         # funcCall
-    | specialEffect        # specialEffectStmt
-    ;
+	decl
+	| assign
+	| print
+	| ifStmt
+	| loop
+	| functionDecl
+	| functionCall;
 
 decl: 'o_o' ID;
 assign: ID '=_=' expr;
@@ -22,18 +20,23 @@ ifStmt: '?_?' expr stmt ('!_!' stmt)?;
 loop: '@_@' expr stmt '#_#';
 functionDecl: '(→_←)' ID stmt;
 functionCall: '^o^' ID;
-specialEffect: ('$_$' | '%_%');
+addOperator: '+';
+subOperator: '-';
+mulOperator: '*';
+divOperator: '/';
 
-expr: INT                 # intExpr
-    | ID                  # idExpr
-    | expr '+' expr       # addExpr
-    | expr '-' expr       # subExpr
-    | expr '*' expr       # mulExpr
-    | expr '/' expr       # divExpr
-    ;
+expr:
+	INT
+	| STRING
+	| ID
+	| expr addOperator expr
+	| expr subOperator expr
+	| expr mulOperator expr
+	| expr divOperator expr;
 
 // Lexer Rules
 
+STRING: '"' (~["\n\r])* '"';
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 INT: [0-9]+;
-WS: [ \t\n\r]+ -> skip;  // skip whitespace, newlines, etc.
+WS: [ \t\n\r]+ -> skip;

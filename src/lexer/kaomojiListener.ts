@@ -4,14 +4,7 @@ import {ParseTreeListener} from "antlr4";
 
 
 import { ProgContext } from "./kaomojiParser";
-import { DeclStmtContext } from "./kaomojiParser";
-import { AssignStmtContext } from "./kaomojiParser";
-import { PrintStmtContext } from "./kaomojiParser";
-import { IfStatementContext } from "./kaomojiParser";
-import { LoopStmtContext } from "./kaomojiParser";
-import { FuncDeclarationContext } from "./kaomojiParser";
-import { FuncCallContext } from "./kaomojiParser";
-import { SpecialEffectStmtContext } from "./kaomojiParser";
+import { StmtContext } from "./kaomojiParser";
 import { DeclContext } from "./kaomojiParser";
 import { AssignContext } from "./kaomojiParser";
 import { PrintContext } from "./kaomojiParser";
@@ -19,13 +12,11 @@ import { IfStmtContext } from "./kaomojiParser";
 import { LoopContext } from "./kaomojiParser";
 import { FunctionDeclContext } from "./kaomojiParser";
 import { FunctionCallContext } from "./kaomojiParser";
-import { SpecialEffectContext } from "./kaomojiParser";
-import { IntExprContext } from "./kaomojiParser";
-import { AddExprContext } from "./kaomojiParser";
-import { MulExprContext } from "./kaomojiParser";
-import { DivExprContext } from "./kaomojiParser";
-import { SubExprContext } from "./kaomojiParser";
-import { IdExprContext } from "./kaomojiParser";
+import { AddOperatorContext } from "./kaomojiParser";
+import { SubOperatorContext } from "./kaomojiParser";
+import { MulOperatorContext } from "./kaomojiParser";
+import { DivOperatorContext } from "./kaomojiParser";
+import { ExprContext } from "./kaomojiParser";
 
 
 /**
@@ -44,101 +35,15 @@ export default class kaomojiListener extends ParseTreeListener {
 	 */
 	exitProg?: (ctx: ProgContext) => void;
 	/**
-	 * Enter a parse tree produced by the `declStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
+	 * Enter a parse tree produced by `kaomojiParser.stmt`.
 	 * @param ctx the parse tree
 	 */
-	enterDeclStmt?: (ctx: DeclStmtContext) => void;
+	enterStmt?: (ctx: StmtContext) => void;
 	/**
-	 * Exit a parse tree produced by the `declStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
+	 * Exit a parse tree produced by `kaomojiParser.stmt`.
 	 * @param ctx the parse tree
 	 */
-	exitDeclStmt?: (ctx: DeclStmtContext) => void;
-	/**
-	 * Enter a parse tree produced by the `assignStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterAssignStmt?: (ctx: AssignStmtContext) => void;
-	/**
-	 * Exit a parse tree produced by the `assignStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitAssignStmt?: (ctx: AssignStmtContext) => void;
-	/**
-	 * Enter a parse tree produced by the `printStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterPrintStmt?: (ctx: PrintStmtContext) => void;
-	/**
-	 * Exit a parse tree produced by the `printStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitPrintStmt?: (ctx: PrintStmtContext) => void;
-	/**
-	 * Enter a parse tree produced by the `ifStatement`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterIfStatement?: (ctx: IfStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by the `ifStatement`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitIfStatement?: (ctx: IfStatementContext) => void;
-	/**
-	 * Enter a parse tree produced by the `loopStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterLoopStmt?: (ctx: LoopStmtContext) => void;
-	/**
-	 * Exit a parse tree produced by the `loopStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitLoopStmt?: (ctx: LoopStmtContext) => void;
-	/**
-	 * Enter a parse tree produced by the `funcDeclaration`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterFuncDeclaration?: (ctx: FuncDeclarationContext) => void;
-	/**
-	 * Exit a parse tree produced by the `funcDeclaration`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitFuncDeclaration?: (ctx: FuncDeclarationContext) => void;
-	/**
-	 * Enter a parse tree produced by the `funcCall`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterFuncCall?: (ctx: FuncCallContext) => void;
-	/**
-	 * Exit a parse tree produced by the `funcCall`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitFuncCall?: (ctx: FuncCallContext) => void;
-	/**
-	 * Enter a parse tree produced by the `specialEffectStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	enterSpecialEffectStmt?: (ctx: SpecialEffectStmtContext) => void;
-	/**
-	 * Exit a parse tree produced by the `specialEffectStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 */
-	exitSpecialEffectStmt?: (ctx: SpecialEffectStmtContext) => void;
+	exitStmt?: (ctx: StmtContext) => void;
 	/**
 	 * Enter a parse tree produced by `kaomojiParser.decl`.
 	 * @param ctx the parse tree
@@ -210,86 +115,54 @@ export default class kaomojiListener extends ParseTreeListener {
 	 */
 	exitFunctionCall?: (ctx: FunctionCallContext) => void;
 	/**
-	 * Enter a parse tree produced by `kaomojiParser.specialEffect`.
+	 * Enter a parse tree produced by `kaomojiParser.addOperator`.
 	 * @param ctx the parse tree
 	 */
-	enterSpecialEffect?: (ctx: SpecialEffectContext) => void;
+	enterAddOperator?: (ctx: AddOperatorContext) => void;
 	/**
-	 * Exit a parse tree produced by `kaomojiParser.specialEffect`.
+	 * Exit a parse tree produced by `kaomojiParser.addOperator`.
 	 * @param ctx the parse tree
 	 */
-	exitSpecialEffect?: (ctx: SpecialEffectContext) => void;
+	exitAddOperator?: (ctx: AddOperatorContext) => void;
 	/**
-	 * Enter a parse tree produced by the `intExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Enter a parse tree produced by `kaomojiParser.subOperator`.
 	 * @param ctx the parse tree
 	 */
-	enterIntExpr?: (ctx: IntExprContext) => void;
+	enterSubOperator?: (ctx: SubOperatorContext) => void;
 	/**
-	 * Exit a parse tree produced by the `intExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Exit a parse tree produced by `kaomojiParser.subOperator`.
 	 * @param ctx the parse tree
 	 */
-	exitIntExpr?: (ctx: IntExprContext) => void;
+	exitSubOperator?: (ctx: SubOperatorContext) => void;
 	/**
-	 * Enter a parse tree produced by the `addExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Enter a parse tree produced by `kaomojiParser.mulOperator`.
 	 * @param ctx the parse tree
 	 */
-	enterAddExpr?: (ctx: AddExprContext) => void;
+	enterMulOperator?: (ctx: MulOperatorContext) => void;
 	/**
-	 * Exit a parse tree produced by the `addExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Exit a parse tree produced by `kaomojiParser.mulOperator`.
 	 * @param ctx the parse tree
 	 */
-	exitAddExpr?: (ctx: AddExprContext) => void;
+	exitMulOperator?: (ctx: MulOperatorContext) => void;
 	/**
-	 * Enter a parse tree produced by the `mulExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Enter a parse tree produced by `kaomojiParser.divOperator`.
 	 * @param ctx the parse tree
 	 */
-	enterMulExpr?: (ctx: MulExprContext) => void;
+	enterDivOperator?: (ctx: DivOperatorContext) => void;
 	/**
-	 * Exit a parse tree produced by the `mulExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Exit a parse tree produced by `kaomojiParser.divOperator`.
 	 * @param ctx the parse tree
 	 */
-	exitMulExpr?: (ctx: MulExprContext) => void;
+	exitDivOperator?: (ctx: DivOperatorContext) => void;
 	/**
-	 * Enter a parse tree produced by the `divExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Enter a parse tree produced by `kaomojiParser.expr`.
 	 * @param ctx the parse tree
 	 */
-	enterDivExpr?: (ctx: DivExprContext) => void;
+	enterExpr?: (ctx: ExprContext) => void;
 	/**
-	 * Exit a parse tree produced by the `divExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Exit a parse tree produced by `kaomojiParser.expr`.
 	 * @param ctx the parse tree
 	 */
-	exitDivExpr?: (ctx: DivExprContext) => void;
-	/**
-	 * Enter a parse tree produced by the `subExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	enterSubExpr?: (ctx: SubExprContext) => void;
-	/**
-	 * Exit a parse tree produced by the `subExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	exitSubExpr?: (ctx: SubExprContext) => void;
-	/**
-	 * Enter a parse tree produced by the `idExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	enterIdExpr?: (ctx: IdExprContext) => void;
-	/**
-	 * Exit a parse tree produced by the `idExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	exitIdExpr?: (ctx: IdExprContext) => void;
+	exitExpr?: (ctx: ExprContext) => void;
 }
 

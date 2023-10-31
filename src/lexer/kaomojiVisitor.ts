@@ -4,14 +4,7 @@ import {ParseTreeVisitor} from 'antlr4';
 
 
 import { ProgContext } from "./kaomojiParser";
-import { DeclStmtContext } from "./kaomojiParser";
-import { AssignStmtContext } from "./kaomojiParser";
-import { PrintStmtContext } from "./kaomojiParser";
-import { IfStatementContext } from "./kaomojiParser";
-import { LoopStmtContext } from "./kaomojiParser";
-import { FuncDeclarationContext } from "./kaomojiParser";
-import { FuncCallContext } from "./kaomojiParser";
-import { SpecialEffectStmtContext } from "./kaomojiParser";
+import { StmtContext } from "./kaomojiParser";
 import { DeclContext } from "./kaomojiParser";
 import { AssignContext } from "./kaomojiParser";
 import { PrintContext } from "./kaomojiParser";
@@ -19,13 +12,11 @@ import { IfStmtContext } from "./kaomojiParser";
 import { LoopContext } from "./kaomojiParser";
 import { FunctionDeclContext } from "./kaomojiParser";
 import { FunctionCallContext } from "./kaomojiParser";
-import { SpecialEffectContext } from "./kaomojiParser";
-import { IntExprContext } from "./kaomojiParser";
-import { AddExprContext } from "./kaomojiParser";
-import { MulExprContext } from "./kaomojiParser";
-import { DivExprContext } from "./kaomojiParser";
-import { SubExprContext } from "./kaomojiParser";
-import { IdExprContext } from "./kaomojiParser";
+import { AddOperatorContext } from "./kaomojiParser";
+import { SubOperatorContext } from "./kaomojiParser";
+import { MulOperatorContext } from "./kaomojiParser";
+import { DivOperatorContext } from "./kaomojiParser";
+import { ExprContext } from "./kaomojiParser";
 
 
 /**
@@ -43,61 +34,11 @@ export default class kaomojiVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitProg?: (ctx: ProgContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `declStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
+	 * Visit a parse tree produced by `kaomojiParser.stmt`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitDeclStmt?: (ctx: DeclStmtContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `assignStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitAssignStmt?: (ctx: AssignStmtContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `printStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitPrintStmt?: (ctx: PrintStmtContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `ifStatement`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitIfStatement?: (ctx: IfStatementContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `loopStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitLoopStmt?: (ctx: LoopStmtContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `funcDeclaration`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitFuncDeclaration?: (ctx: FuncDeclarationContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `funcCall`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitFuncCall?: (ctx: FuncCallContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `specialEffectStmt`
-	 * labeled alternative in `kaomojiParser.stmt`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitSpecialEffectStmt?: (ctx: SpecialEffectStmtContext) => Result;
+	visitStmt?: (ctx: StmtContext) => Result;
 	/**
 	 * Visit a parse tree produced by `kaomojiParser.decl`.
 	 * @param ctx the parse tree
@@ -141,52 +82,34 @@ export default class kaomojiVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitFunctionCall?: (ctx: FunctionCallContext) => Result;
 	/**
-	 * Visit a parse tree produced by `kaomojiParser.specialEffect`.
+	 * Visit a parse tree produced by `kaomojiParser.addOperator`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitSpecialEffect?: (ctx: SpecialEffectContext) => Result;
+	visitAddOperator?: (ctx: AddOperatorContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `intExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Visit a parse tree produced by `kaomojiParser.subOperator`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitIntExpr?: (ctx: IntExprContext) => Result;
+	visitSubOperator?: (ctx: SubOperatorContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `addExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Visit a parse tree produced by `kaomojiParser.mulOperator`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitAddExpr?: (ctx: AddExprContext) => Result;
+	visitMulOperator?: (ctx: MulOperatorContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `mulExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Visit a parse tree produced by `kaomojiParser.divOperator`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitMulExpr?: (ctx: MulExprContext) => Result;
+	visitDivOperator?: (ctx: DivOperatorContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `divExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
+	 * Visit a parse tree produced by `kaomojiParser.expr`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitDivExpr?: (ctx: DivExprContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `subExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitSubExpr?: (ctx: SubExprContext) => Result;
-	/**
-	 * Visit a parse tree produced by the `idExpr`
-	 * labeled alternative in `kaomojiParser.expr`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitIdExpr?: (ctx: IdExprContext) => Result;
+	visitExpr?: (ctx: ExprContext) => Result;
 }
 
