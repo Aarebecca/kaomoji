@@ -73,5 +73,6 @@
   },
   "dependencies": {
     "antlr4": "^4.13.1"
-  }
+  },
+  "repository": "git@github.com:Aarebecca/kaomoji.git"
 }

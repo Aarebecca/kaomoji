@@ -1,4 +1,4 @@
-grammar EmoticonLang;
+grammar kaomoji;
 
 // Parser Rules
 
